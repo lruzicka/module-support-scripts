@@ -3,7 +3,8 @@ import os
 import sys
 
 
-def getFiles(): # A helper function to get the list of file names.
+def getFiles():
+    '''A helper function to get the list of file names.'''
     path = os.getcwd()
     files = []
 
@@ -14,7 +15,8 @@ def getFiles(): # A helper function to get the list of file names.
 
     return(files)
 
-def getId(files): # A function to realize the lowest possible free ID.
+def getId(files):
+    '''A function to realize the lowest possible free ID.'''
     ids = []
     for file in files:
         with open(file) as fdata:
@@ -40,7 +42,8 @@ def getId(files): # A function to realize the lowest possible free ID.
     return(str(idnum))
 
     
-def parseArg(): # Parsing CLI options
+def parseArg():
+    '''Parse CLI options.'''
     data = sys.argv
     options = {}
     while len(data) > 1:
