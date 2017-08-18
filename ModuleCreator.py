@@ -15,6 +15,7 @@ def getFiles():
 
     return(files)
 
+
 def getId(files):
     '''A function to realize the lowest possible free ID.'''
     ids = []
@@ -22,7 +23,7 @@ def getId(files):
         with open(file) as fdata:
             data = fdata.readlines()
         for line in data:
-            #print(line)
+            # print(line)
             if ":rh-id:" in line:
                 line = line.strip()
                 split = line.split('#')
@@ -30,18 +31,18 @@ def getId(files):
                 ids.append(int(idnum))
     ids.sort()
     idLen = len(ids)
-    nums = [x for x in range(ids[0],ids[-1]+1)]
+    nums = [x for x in range(ids[0], ids[-1]+1)]
     a = set(ids)
-    compare = list(a^set(nums))
+    compare = list(a ^ set(nums))
 
     try:
         idnum = compare[0]
     except IndexError:
         idnum = idLen+1
-        
+
     return(str(idnum))
 
-    
+
 def parseArg():
     '''Parse CLI options.'''
     data = sys.argv
@@ -50,21 +51,23 @@ def parseArg():
         try:
             opt1 = data.pop(1)
             opt2 = data.pop(1)
-            options[opt1]=opt2
+            options[opt1] = opt2
         except IndexError:
             if opt1 != '-h':
                 print('Not a valid command. Use -h for help.')
             else:
-                options[opt1]='Help me!'
+                options[opt1] = 'Help me!'
     return(options)
 
-def solveOpt(options,option):
+
+def solveOpt(options, option):
     try:
         value = options[option]
     except KeyError:
-       print('Something went wrong.')
-    return(value)   
-       
+        print('Something went wrong.')
+    return(value)
+
+
 options = (parseArg())
 
 
@@ -91,7 +94,7 @@ else:
         ntitle = ntitle.split(' ')
         ntitle = '-'.join(ntitle)
     else:
-        title = solveOpt(options,'-t')
+        title = solveOpt(options, '-t')
         print(title)
         ntitle = title.lower()
         ntitle = ntitle.split(' ')
@@ -101,25 +104,25 @@ else:
         product = input("Write the acronym of the product (rhosp, rhel, rhev, ...): ")
         product = product.lower()
     else:
-        product = solveOpt(options,'-p')
-        
+        product = solveOpt(options, '-p')
+
     if '-b' not in options.keys():
         book = input("Write the acronym of the guide (odl, nfv, ...): ")
         book = book.lower()
     else:
-        book = solveOpt(options,'-b')
-        
+        book = solveOpt(options, '-b')
+
     if '-f' not in options.keys():
         function = input("Write the function of the module (concept, reference, procedure): ")
         print(function)
         function = function.lower()
-    else:    
-        function = solveOpt(options,'-f')
-        
+    else:
+        function = solveOpt(options, '-f')
+
     flist = getFiles()
     fID = getId(flist)
 
-    fname = [function,fID,product,book,ntitle]
+    fname = [function, fID, product, book, ntitle]
     fname = '_'.join(fname)
     fname = fname+'.adoc'
 
@@ -129,14 +132,13 @@ else:
     lineTg = ':rh-tags: '
     lineTi = '= '+title
 
-    ftext = [lineId,linePr,lineUs,lineTg,' ',lineTi]
+    ftext = [lineId, linePr, lineUs, lineTg, ' ', lineTi]
 
     if fname not in flist:
-        with open(fname,'w') as outfile:
+        with open(fname, 'w') as outfile:
             for line in ftext:
                 outfile.write(line)
                 outfile.write('\n')
-        print('File %s was succesfully created.' %fname)
+        print('File %s was succesfully created.' % fname)
     else:
-        print('File %s already exists which is strange. Resolve the conflict first!' %fname)
-
+        print('File %s already exists which is strange. Resolve the conflict first!' % fname)
