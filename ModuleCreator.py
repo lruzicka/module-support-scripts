@@ -72,20 +72,19 @@ options = (parseArg())
 
 
 if '-h' in options.keys():
-    data = ['============================================',
-            'Module Creator (proof-of-concept)',
-            '--------------------------------------------',
-            'Usage: ModuleCreator.py [option] [argument] [option2] [argument2] ...',
-            '-h: displays this help message',
-            '-t: title (For more words use quotation marks.)',
-            '-b: book acronym, such as odl, nfv, ...',
-            '-p: product acronym, such as rhosp, rhel, rhev, ...',
-            '-f: function (concept or reference or procedure)',
-            '------------------------------------------------',
-            'If you run the command without options, or you skip an option, the script will become interactive.',
-            '================================================']
-    text = '\n'.join(data)
-    print(text)
+    print('''\
+============================================
+Module Creator (proof-of-concept)
+--------------------------------------------
+Usage: ModuleCreator.py [option] [argument] [option2] [argument2] ...
+-h: displays this help message
+-t: title (For more words use quotation marks.)
+-b: book acronym, such as odl, nfv, ...
+-p: product acronym, such as rhosp, rhel, rhev, ...
+-f: function (concept or reference or procedure)
+------------------------------------------------
+If you run the command without options, or you skip an option, the script will become interactive.
+================================================''')
 
 else:
     if '-t' not in options.keys():
